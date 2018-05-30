@@ -48,6 +48,8 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
+    clockwork (2.0.3)
+      tzinfo
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     devise (4.4.3)
@@ -167,6 +169,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
+  clockwork
   devise_token_auth
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)

@@ -14,9 +14,14 @@ class UrlsController < ApplicationController
       respond_to do |format|
         format.json {render json: {message: @url.short_url}, status: 200}
       end
-    rescue
+    rescue => e
+      if e.class == ActiveRecord::RecordNotUnique
+        message = 'Short url in not unique'
+      else
+        message = 'Server Error'
+      end
       respond_to do |format|
-        format.json {render json: {message: 'Server error'}, status: 500}
+        format.json {render json: {message: message}, status: 500}
       end
     end
   end

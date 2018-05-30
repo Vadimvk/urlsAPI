@@ -49,3 +49,5 @@ gem 'devise_token_auth'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'rest-client'
+
+gem 'clockwork'
