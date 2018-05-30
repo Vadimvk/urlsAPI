@@ -2,7 +2,7 @@ class CreateUrls < ActiveRecord::Migration[5.2]
   def change
     create_table :urls do |t|
       t.belongs_to :user, index: true
-      t.text :urls, :null => false
+      t.text :url, :null => false
       t.string :short_url, :null => false
       t.integer :count
 

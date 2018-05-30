@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2018_05_29_221443) do
 
   create_table "urls", force: :cascade do |t|
     t.bigint "user_id"
-    t.text "urls", null: false
+    t.text "url", null: false
     t.string "short_url", null: false
     t.integer "count"
     t.datetime "created_at", null: false
