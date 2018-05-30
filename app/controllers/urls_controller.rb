@@ -2,24 +2,29 @@ class UrlsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def create
-    params[:short_url] = Url.create_short_url if url_params[:short_url].nil?
-    @url = Url.new(url_params)
-    @url.user_id = current_user.id
-    if @url.save
-      respond_to do |format|
-        format.json {render json: '200'}
-      end
-    else
-      respond_to do |format|
-        format.json {render json: '500'}
+    unless Url.valid_url?(url_params[:url])
+      return respond_to do |format|
+        format.json {render json: {message: 'Url is invalid'}, status: 500}
       end
     end
-
+    params[:short_url] = Url.create_short_url if url_params[:short_url].blank?
+    @url = Url.new(url_params)
+    @url.user_id = current_user.id
+    begin @url.save!
+      respond_to do |format|
+        format.json {render json: {message: @url.short_url}, status: 200}
+      end
+    rescue
+      respond_to do |format|
+        format.json {render json: {message: 'Server error'}, status: 500}
+      end
+    end
   end
 
   def redirect
     @url = Url.find_by(short_url: params[:short_url])
     return render status: 404 if @url.nil?
+    @url.increment!(:count)
     redirect_to @url.url
   end
 
