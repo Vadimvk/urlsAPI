@@ -40,7 +40,11 @@ The main technologies used are:
    ```
    $ rails s
    ```    
+6. Worker
 
+    ```
+    $ bundle exec clockwork config/clock.rb
+    ```
 ## General routes
 
   1. POST '/urls/create'. Params[:url, :short_url] - create short url. (:short_url - optional)
