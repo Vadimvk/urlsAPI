@@ -7,10 +7,22 @@ class UrlsController < ApplicationController
         format.json {render json: {message: 'Url is invalid'}, status: 500}
       end
     end
-    params[:short_url] = Url.create_short_url if url_params[:short_url].blank?
+
+    if url_params[:short_url].blank?
+      params[:short_url] = Url.create_short_url
+    else
+      if Url.special_character_short_url?(url_params[:short_url])
+        return respond_to do |format|
+          format.json {render json: {message: 'Short_url has special characters'}, status: 500}
+        end
+      end
+    end
+
     @url = Url.new(url_params)
     @url.user_id = current_user.id
-    begin @url.save!
+
+    begin
+      @url.save!
       respond_to do |format|
         format.json {render json: {message: @url.short_url}, status: 200}
       end
