@@ -13,7 +13,7 @@ class UrlsController < ApplicationController
     else
       if Url.special_character_short_url?(url_params[:short_url])
         return respond_to do |format|
-          format.json {render json: {message: 'Short_url has special characters'}, status: 500}
+          format.json {render json: {message: 'Short url has special characters'}, status: 500}
         end
       end
     end
