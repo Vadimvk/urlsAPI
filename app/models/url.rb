@@ -14,7 +14,7 @@ class Url < ApplicationRecord
   end
 
   def self.special_character_short_url?(short_url)
-    special = "?<>'\\,?[]}{=-)(*&^%$#`~{}"
+    special = "?<>'\\,?[]}{=/-)(*&^%$#`~{}"
     regex = /[#{special.gsub(/./){|char| "\\#{char}"}}]/
     return short_url =~ regex ? true : false
   end
